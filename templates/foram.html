@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Registration Form</title>
+  <link rel="stylesheet" href="{% static 'stylo.css' %}">
+  <script src="{% static 'script.js' %}" defer></script>
+</head>
+<body>
+
+<nav>
+  <button id="search">Search</button>
+</nav>
+<hr width="100%" height="20%">
+<div class="container">
+  <div class="form-container">
+    <h2 align="center">Register as a Delivery Person</h2>
+    <form id="registration-form">
+      <div><img id="box" src="{% static 'dci6.png' %}"></div>
+      <div class="form-group">
+        <label for="username"><b>Username:</b></label>
+        <input type="text" id="username" name="username" required>
+      </div>
+      <div class="form-group">
+        <label for="email"><b>Email:</b></label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password"><b>Password:</b></label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <div class="form-group">
+        <label for="contact"><b>Contact Number:</b></label>
+        <input type="tel" id="contact" name="contact">
+      </div>
+      <div class="form-group">
+        <label for="address"><b>Address:</b></label>
+        <input type="text" id="address" name="address" required>
+      </div>
+      <button type="submit"><b>Register</b></button>
+    </form>
+  </div>
+</div>
+<hr width="100%" height="50%">
+</body>
+</html>

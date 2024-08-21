@@ -1,0 +1,102 @@
+{% extends 'donor_base.html' %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Food</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Donate Food</h2>
+        <form action="#" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="donationName">Donation Name:</label>
+                <input type="text" id="donationName" name="donationname" required>
+            </div>
+            <div class="form-group">
+                <label for="donationImage">Donation Image:</label>
+                <input type="file" id="donationImage" name="donationpic" required>
+            </div>
+            <div class="form-group">
+                <label for="collectionAddress">Collection Address:</label>
+                <textarea id="collectionAddress" name="collectionloc" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            <button type="submit">Donate</button>
+        </form>
+    </div>
+    {% if error == 'no' %}
+    <script>
+        alert("Donation collection request has been Send");
+        window.location = ('{% url 'donor_history' %}');
+    </script>
+    {% endif %}
+
+    {% if error == 'yes' %}
+    <script>
+        alert("Something Went not  Wrong in form. Please Try Again");
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock %}

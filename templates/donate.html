@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Food</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-out; /* Fade in animation */
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        h2 {
+            text-align: center;
+            color: #333; /* Text color */
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #555; /* Label color */
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="file"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus,
+        input[type="file"]:focus,
+        textarea:focus {
+            border-color: #007bff; /* Border color on focus */
+        }
+        textarea {
+            resize: vertical;
+            height: 120px; /* Set a fixed height for textarea */
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            display: inline-block;
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker shade of primary color */
+        }
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .file-upload input[type='file'] {
+            position: absolute;
+            font-size: 100px;
+            opacity: 0;
+            right: 0;
+            top: 0;
+        }
+        .file-upload label {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .file-upload label:hover {
+            background-color: #0056b3; /* Darker shade of primary color */
+        }
+        .file-upload input[type='text'] {
+            width: calc(100% - 100px);
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+        }
+        .note {
+            font-size: 14px;
+            color: #777;
+            margin-top: 10px;
+        }
+        .note b {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Donate Food</h2>
+        <form method="post" enctype="multipart/form-data">
+            <!-- CSRF token -->
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="donationName">Donation Name:</label>
+                <input type="text" id="donationName" name="donationname" required>
+            </div>
+            <div class="form-group">
+                <label for="donationImage">Donation Image:</label>
+                <div class="file-upload">
+                    <input type="file" id="donationImage" name="donationpic" required>
+                    <label for="donationImage">Choose File</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="collectionAddress">Collection Address:</label>
+                <textarea id="collectionAddress" name="collectionloc" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            <button type="submit">Donate</button>
+            <div class="note"><b>Note:</b> Please fill in all the fields to proceed with your donation.</div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donors - My Website</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+
+    .container {
+        margin: 20px auto;
+        padding: 20px;
+        max-width: 800px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: #f2f2f2;
+        text-align: left;
+        color: #333;
+    }
+
+    .table td img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .rounded-circle {
+        border-radius: 50%;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Donor Information</h2>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Contact Number</th>
+                    <th>Email ID</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td><img src="{{ donation.donor.userpic.url }}" alt="Donor Image" class="rounded-circle"></td>
+                    <td>{{ donation.donor.user.first_name }} {{ donor.user.last_name }}</td>
+                    <td>{{ donation.donor.contact }}</td>
+                    <td>{{ donation.donor.user.username }}</td>
+                    <td>{{ donation.donor.address }}</td>
+                </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Donation Details</h2>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Donation Name</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr>
+                    <td>{{ donation.donationname }}</td>
+                    <td><img src="{{ donation.donationpic.url }}" alt="Donation Image" style="width: 80px; height: 80px; object-fit: cover;"></td>
+                     
+                </tr>
+            <form action="" method="post">
+                        {% csrf_token %}
+                        {% if donation.status == "Pending" %}
+                        <button type="submit">Accept Donation</button>
+                        {% endif %}
+                    </form>
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

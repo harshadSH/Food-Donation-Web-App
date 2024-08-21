@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donation Details</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    h1, h2 {
+        color: #333;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .table td:first-child {
+        width: 200px;
+    }
+
+    .table td:last-child {
+        text-align: right;
+    }
+
+    .table td:last-child button {
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .table td:last-child button:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Donation Details</h1>
+
+    <h2>Donation Information</h2>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><strong>Donation Pic</strong></td>
+                <td><img src="{{ donation.donationpic.url }}" alt="Donation Image"></td>
+            </tr>
+            <tr>
+                <td><strong>Name</strong></td>
+                <td>{{ donation.donationname }}</td>
+            </tr>
+            <tr>
+                <td><strong>Description</strong></td>
+                <td>{{ donation.description }}</td>
+            </tr>
+            <tr>
+                <td><strong>Status</strong></td>
+                <td>{{ donation.status }}</td>
+            </tr>
+            <tr>
+                <td><strong>Address</strong></td>
+                <td>{{ donation.collectionloc }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Donor Information</h2>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><strong>Name</strong></td>
+                <td>{{ donation.donor.user.first_name }} {{ donation.donor.user.last_name }}</td>
+            </tr>
+            <tr>
+                <td><strong>Contact</strong></td>
+                <td>{{ donation.donor.contact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>NGO Information</h2>
+    <table class="table">
+        <tbody>
+            <tr>
+                <td><strong>Name</strong></td>
+                <td>{{ donation.ngoname }}</td>
+            </tr>
+            <tr>
+                <td><strong>Contact</strong></td>
+                <td>{{ donation.ngo_contact }}</td>
+            </tr>
+            <tr>
+                <td><strong>Address</strong></td>
+                <td>{{ donation.deliveryloc }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <!-- Form for accepting donation -->
+    <form action="" method="post">
+        {% csrf_token %}
+        {% if donation.status == "Accepted" %}
+        <button type="submit">Get Order</button>
+        {% endif %}
+        {% if donation.status == "On Route" %}
+        <button type="submit">Order Colltected</button>
+        {% endif %}
+        {% if donation.status == "Collected" %}
+        <button type="submit">Order Completed</button>
+        {% endif %}
+        
+    </form>
+</div>
+
+</body>
+</html>

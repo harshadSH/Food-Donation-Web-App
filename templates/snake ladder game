@@ -1,0 +1,89 @@
+import pygame
+import random
+
+# Initialize Pygame
+pygame.init()
+
+# Set up the screen
+WIDTH, HEIGHT = 800, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Snake and Ladder")
+
+# Define colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Load images
+board_img = pygame.image.load("board.png")
+player_img = pygame.image.load("player.png")
+dice_imgs = [pygame.image.load(f"dice{i}.png") for i in range(1, 7)]
+
+# Define player class
+class Player(pygame.sprite.Sprite):
+    def __init__(self, pos):
+        super().__init__()
+        self.image = pygame.transform.scale(player_img, (50, 50))
+        self.rect = self.image.get_rect()
+        self.rect.topleft = pos
+
+# Function to roll the dice
+def roll_dice():
+    return random.randint(1, 6)
+
+# Function to move the player
+def move_player(player, steps):
+    player += steps
+    return player
+
+# Function to check if player landed on a ladder
+def check_ladder(player):
+    ladders = {1: 38, 4: 14, 9: 31, 21: 42, 28: 84, 36: 44, 51: 67, 71: 91, 80: 100}
+    if player in ladders:
+        return ladders[player]
+    return player
+
+# Function to check if player landed on a snake
+def check_snake(player):
+    snakes = {16: 6, 47: 26, 49: 11, 56: 53, 62: 19, 64: 60, 87: 24, 93: 73, 95: 75, 98: 78}
+    if player in snakes:
+        return snakes[player]
+    return player
+
+# Main game loop
+def play_game():
+    player_position = 1
+    player_sprite = Player((0, 550))
+    all_sprites = pygame.sprite.Group(player_sprite)
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    dice_roll = roll_dice()
+                    player_position = move_player(player_position, dice_roll)
+                    player_position = check_ladder(player_position)
+                    player_position = check_snake(player_position)
+                    print("You rolled a", dice_roll)
+                    print("You are now at position", player_position)
+                    if player_position >= 100:
+                        print("Congratulations! You've reached the finish line!")
+                        running = False
+
+        screen.fill(WHITE)
+        screen.blit(board_img, (0, 0))
+        screen.blit(dice_imgs[random.randint(0, 5)], (100, 400))
+        all_sprites.draw(screen)
+        pygame.display.flip()
+
+    pygame.quit()
+
+if __name__ == "__main__":
+    print("Welcome to Snake and Ladder!")
+    play_game()

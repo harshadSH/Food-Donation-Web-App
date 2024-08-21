@@ -1,0 +1,122 @@
+{% extends 'ngo_base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Donations</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+        color: #333;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    table {
+        width: 100%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #333;
+        color: #fff;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    .action-btn {
+        padding: 8px 15px;
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .action-btn:hover {
+        background-color: #45a049;
+    }
+
+    @media only screen and (max-width: 768px) {
+        /* Adjust table styles for smaller screens */
+        table {
+            width: 90%;
+        }
+    }
+
+    @media only screen and (max-width: 480px) {
+        /* Further adjust table styles for smaller screens */
+        table {
+            width: 100%;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 10px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<main>
+    <h2>Available Donations</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Sr No</th>
+                <th>Donation Name</th>
+                <th>Donation Date</th>
+                <th>Donation Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in donations %}
+                
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.donationname }}</td>
+                <td>{{ i.donationdate }}</td>
+                <td>{{ i.status }}</td>
+                <td><a href="{% url 'view_detail' i.id %}" class="action-btn">View Detail</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+
+
+</body>
+</html>
+{% endblock %}

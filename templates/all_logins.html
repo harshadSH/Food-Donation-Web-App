@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login/Register</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .user-type {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .user-type-block {
+            width: calc(33.33% - 20px);
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .user-type-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .user-type-block h2 {
+            text-align: center;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .user-type-block ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .user-type-block ul li {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .user-type-block ul li a {
+            display: block;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .user-type-block ul li a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Login/Register</h1>
+        <div class="user-type">
+            <div class="user-type-block">
+                <h2>Donor</h2>
+                <ul>
+                    <li><a href="{% url 'donor_login' %}">Login</a></li>
+                    <li><a href="{% url 'donor_reg' %}">Register</a></li>
+                </ul>
+            </div>
+            <div class="user-type-block">
+                <h2>Volunteer</h2>
+                <ul>
+                    <li><a href="{% url 'volunteer_login' %}">Login</a></li>
+                    <li><a href="{% url 'volunteer_reg' %}">Register</a></li>
+                </ul>
+            </div>
+            <div class="user-type-block">
+                <h2>NGO</h2>
+                <ul>
+                    <li><a href="{% url 'ngo_login' %}">Login</a></li>
+                    <li><a href="{% url 'ngo_reg' %}">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

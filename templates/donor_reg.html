@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 400px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input, button, select, textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            outline: none;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <form id="signupForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            <label for="contact">Contact Number:</label>
+            <input type="tel" id="contact" name="contact" placeholder="Enter your contact number">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+            <div id="passwordStrength" class="error"></div>
+            <div id="passwordError" class="error"></div>
+            <label for="userpic">Profile Picture:</label>
+            <input type="file" id="userpic" name="userpic" placeholder="Choose your profile picture">
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" placeholder="Enter your address" rows="4" required></textarea>
+            <button type="submit" id="signupButton" disabled>Sign Up</button>
+        </form>
+    </div>
+
+    {% if error == 'no' %}
+    <script>
+        alert('Signup Successful');
+        window.location = ('{% url 'donor_login' %}');
+    </script>
+    {% endif %}
+
+    {% if error == 'yes' %}
+    <script>
+        alert('Signup Unsuccessful');
+    </script>
+    {% endif %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+    <script>
+        const form = document.getElementById('signupForm');
+        const password = document.getElementById('password');
+        const confirm_password = document.getElementById('confirm_password');
+        const passwordError = document.getElementById('passwordError');
+        const passwordStrength = document.getElementById('passwordStrength');
+        const signupButton = document.getElementById('signupButton');
+
+        // Password strength function
+
+        // Event listener for confirm password
+        confirm_password.addEventListener('keyup', function () {
+            if (password.value !== confirm_password.value) {
+                passwordError.textContent = 'Passwords do not match';
+                signupButton.disabled = true;
+            } else {
+                passwordError.textContent = '';
+                signupButton.disabled = false;
+            }
+        });
+
+        // Event listener for password strength
+        password.addEventListener('keyup', function () {
+            checkPasswordStrength();
+        });
+
+        // Event listener for form submission
+        form.addEventListener('submit', function (event) {
+            if (password.value !== confirm_password.value) {
+                event.preventDefault();
+                passwordError.textContent = 'Passwords do not match';
+                signupButton.disabled = true;
+            }
+        });
+    </script>
+</body>
+</html>
